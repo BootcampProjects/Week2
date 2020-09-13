@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.Objects;
+import java.util.Random;
 
 @RestController
 @RequestMapping("/subscriptions")
@@ -19,21 +20,19 @@ public class SubscriptionController {
     SubscriptionsService subscriptionsService;
 
     @GetMapping
-    public ResponseEntity getSubscriptions(@RequestParam(required = false) String userId, @RequestParam(required = false) String paymentId) {
-        if (Objects.nonNull(userId) && Objects.nonNull(paymentId)) {
-            return ResponseEntity.ok(String.format("user id -> %s -- payment id -> %s", userId, paymentId));
-        } else if (Objects.nonNull(userId)) {
-            return ResponseEntity.ok(String.format("user id -> %s", userId));
-        } else if (Objects.nonNull(paymentId)) {
-            return ResponseEntity.ok(String.format("payment id -> %s", paymentId));
+    public ResponseEntity getSubscriptions(@RequestParam(required = false) String userId) {
+        if (Objects.nonNull(userId)) {
+            return ResponseEntity.ok(subscriptionsService.getSubscriptionByUserId(userId));
         } else {
-            return ResponseEntity.ok("All Subscription");
+            return ResponseEntity.ok(subscriptionsService.getSubscriptionAll());
         }
     }
 
     @PostMapping
     public ResponseEntity createSubscription(@RequestBody SubscriptionRequest subscription) {
-        URI location = URI.create(String.format("/subscriptions/%s/items/%s", "123-12132-121312"));
+
+        Random rand = new Random();
+        URI location = URI.create(String.format("/subscriptions/%s/", rand.nextInt(1000)));
         return ResponseEntity.created(location).build();
     }
 
@@ -44,7 +43,7 @@ public class SubscriptionController {
 
     @GetMapping("/{id}")
     public ResponseEntity<SubscriptionResponse> getSubscription(@PathVariable String id) {
-        return ResponseEntity.ok(SubscriptionResponse.builder().id("1").build());
+        return ResponseEntity.ok(subscriptionsService.getSubscription(id));
     }
 
     @DeleteMapping("/{id}")

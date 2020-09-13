@@ -1,18 +1,22 @@
 package com.kodluyoruz.subscription.contracts.requests;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @Builder
+@RequiredArgsConstructor
 public class SubscriptionPaymentRequest {
+    @NonNull
     private String userId;
+    @NonNull
     private String cardOwnerName;
+    @NonNull
     private String cardNumber;
+    @NonNull
     private String validThruMonth;
+    @NonNull
     private String validThruYear;
+    @NonNull
     private String cvc;
-
 }
