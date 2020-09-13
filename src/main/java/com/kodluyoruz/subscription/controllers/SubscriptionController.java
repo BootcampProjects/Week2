@@ -1,5 +1,10 @@
 package com.kodluyoruz.subscription.controllers;
 
+import com.kodluyoruz.subscription.contracts.requests.SubscriptionRequest;
+import com.kodluyoruz.subscription.contracts.requests.SubscriptionUpdateRequest;
+import com.kodluyoruz.subscription.contracts.response.SubscriptionResponse;
+import com.kodluyoruz.subscription.services.SubscriptionsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +14,9 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/subscriptions")
 public class SubscriptionController {
+
+    @Autowired
+    SubscriptionsService subscriptionsService;
 
     @GetMapping
     public ResponseEntity getSubscriptions(@RequestParam(required = false) String userId, @RequestParam(required = false) String paymentId) {
@@ -24,25 +32,24 @@ public class SubscriptionController {
     }
 
     @PostMapping
-    public ResponseEntity createSubscription() {
-        URI location = URI.create(String.format("/carts/%s/items/%s", "123-12132-121312"));
+    public ResponseEntity createSubscription(@RequestBody SubscriptionRequest subscription) {
+        URI location = URI.create(String.format("/subscriptions/%s/items/%s", "123-12132-121312"));
         return ResponseEntity.created(location).build();
     }
 
     @PatchMapping
-    public ResponseEntity changeSubscription() {
+    public ResponseEntity changeSubscription(@RequestParam SubscriptionUpdateRequest subscriptionUpdateRequest) {
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity getSubscription(@PathVariable String id) {
-        return ResponseEntity.ok().build();
+    public ResponseEntity<SubscriptionResponse> getSubscription(@PathVariable String id) {
+        return ResponseEntity.ok(SubscriptionResponse.builder().id("1").build());
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteSubscription(@PathVariable String id) {
         return ResponseEntity.noContent().build();
     }
-
 
 }
