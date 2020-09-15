@@ -1,3 +1,15 @@
+
+The case of project changed to camelCase.
+
+Changed few error codes and their messages.
+
+Also we decided to use in memory db for operations.
+
+Added test for repostories.
+
+
+---
+
 FORMAT: 1A
 HOST: https://subscriptions13.apiblueprint.org/
 
@@ -45,38 +57,30 @@ This a *__Subscriptions__* module of Trendyol Bootcamp API.
 
         [
             {
-                "id": 1,
-                "user_id": 1,
-                "plan_id": 1,
-                "price": 17.99,
-                "is_paid": true,
-                "start_date": "2020-08-05T00:00:00.000Z",
-                "end_date": "2020-09-05T00:00:00.000Z"
+                            "id": "1",
+                            "userId": "123",
+                            "planId": 0,
+                            "price": 10,
+                            "startDate": "2020-08-05T00:00:00.000Z",
+                            "endDate": "2020-08-05T00:00:00.000Z",
+                            "paid": false
             },
             {
-                "id": 1,
-                "user_id": 1,
-                "plan_id": 2,
-                "price": 24.99,
-                "is_paid": true,
-                "start_date": "2020-09-05T00:00:00.000Z",
-                "end_date": "2020-10-05T00:00:00.000Z"
-            },
-            {
-                "id": 2,
-                "user_id": 2,
-                "plan_id": 2,
-                "price": 24.99,
-                "is_paid": true,
-                "start_date": "2020-08-05T00:00:00.000Z",
-                "end_date": "2020-09-05T00:00:00.000Z"
+                            "id": "2",
+                            "userId": "1234abc",
+                            "planId": 1,
+                            "price": 10,
+                            "startDate": "2020-08-05T00:00:00.000Z",
+                            "endDate": "2020-08-05T00:00:00.000Z",
+                            "paid": true
             }
         ]
         
 + Response 500 (application/json)
 
         {
-            "error": "message.internal_server_error"
+                          "message": "Internal Server Error!",
+                          "timeStamp": "2020-09-15T21:44:02.357+00:00"
         }
     
 ### Create a New Subscription [POST]
@@ -84,8 +88,8 @@ This a *__Subscriptions__* module of Trendyol Bootcamp API.
 + Request (application/json)
 
         {
-            "user_id": 1,
-            "plan_id": 1,
+          "userId": "string",
+          "planId": 0
         }
 
 + Response 201 (application/json)
@@ -97,19 +101,20 @@ This a *__Subscriptions__* module of Trendyol Bootcamp API.
     + Body
 
             {
-                "id": 1,
-                "user_id": 1,
-                "plan_id": 1,
-                "price": 17.99, 
-                "is_paid": true,
-                "start_date": "2020-08-05T00:00:00.000Z",
-                "end_date": "2020-09-05T00:00:00.000Z"
+                "id": "1",
+                "userId": "123",
+                "planId": 0,
+                "price": 10,
+                "startDate": "2020-08-05T00:00:00.000Z",
+                "endDate": "2020-08-05T00:00:00.000Z",
+                "paid": false
             }
             
 + Response 500 (application/json)
 
         {
-            "error": "message.internal_server_error"
+                  "message": "Internal Server Error!",
+                  "timeStamp": "2020-09-15T21:44:02.357+00:00"
         }
 
 ### Change Subscription Plan [PATCH]
@@ -127,7 +132,8 @@ This a *__Subscriptions__* module of Trendyol Bootcamp API.
 + Response 500 (application/json)
 
         {
-            "error": "message.internal_server_error"
+                  "message": "Internal Server Error!",
+                  "timeStamp": "2020-09-15T21:44:02.357+00:00"
         }
 
 ## Subscriptions/id [/subscriptions/{id}]
@@ -140,30 +146,38 @@ This a *__Subscriptions__* module of Trendyol Bootcamp API.
 + Response 200 (application/json)
 
         {
-            "id": 1,
-            "user_id": 1,
-            "plan_id": 1,
-            "price": 17.99,
-            "is_paid": true,
-            "start_date": "2020-08-05T00:00:00.000Z",
-            "end_date": "2020-09-05T00:00:00.000Z"
+            "id": "1",
+            "userId": "123",
+            "planId": 0,
+            "price": 10,
+            "startDate": "2020-08-05T00:00:00.000Z",
+            "endDate": "2020-08-05T00:00:00.000Z",
+            "paid": false
         }
         
 + Response 404 (application/json)
 
         {
-        
-            "error": "message.subscription.not_found"
+                  "message": "Resource not found",
+                  "timeStamp": "2020-09-15T21:44:02.357+00:00"
         }
 
 ### Delete Subscription [DELETE]
 
 + Response 204
 
++ Response 404 (application/json)
+
+        {
+                  "message": "Resource not found",
+                  "timeStamp": "2020-09-15T21:44:02.357+00:00"
+        }
+
 + Response 500 (application/json)
 
         {
-            "error": "message.internal_server_error"
+                  "message": "Internal Server Error!",
+                  "timeStamp": "2020-09-15T21:44:02.357+00:00"
         }
 
 
@@ -177,12 +191,11 @@ This a *__Subscriptions__* module of Trendyol Bootcamp API.
 + Request (application/json)
 
         {
-            "id": 1,
-            "card_owner_name": "Steve Jobs",
-            "card_number": "5500 0000 0000 0004",
-            "valid_thru_month": 11,
-            "valid_thru_year": 28,
-            "cvc": 256
+          "cardOwnerName": "string",
+          "cardNumber": "string",
+          "validThruMonth": "string",
+          "validThruYear": "string",
+          "cvc": "string"
         }
 
 + Response 204
@@ -190,5 +203,6 @@ This a *__Subscriptions__* module of Trendyol Bootcamp API.
 + Response 500 (application/json)
 
         {
-            "error": "message.internal_server_error"
+          "message": "Internal Server Error!",
+          "timeStamp": "2020-09-15T21:44:02.357+00:00"
         }

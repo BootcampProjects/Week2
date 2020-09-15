@@ -34,7 +34,7 @@ public class InMemoryMockRepository implements SubscriptionRepository {
         if (responses.size() > 0) {
             return responses;
         }
-        throw new ResourceNotFoundException("Resource Not Found");
+        throw new ResourceNotFoundException("Resource not found");
     }
 
     @Override
@@ -44,9 +44,7 @@ public class InMemoryMockRepository implements SubscriptionRepository {
 
     @Override
     public String createSubscription(SubscriptionRequest request) {
-
         isPlanIdValid(request.getPlanId());
-
         try {
             SubscriptionResponse response = SubscriptionResponse.builder().id(String.valueOf(db.size() + 1))
                     .endDate(LocalDate.now()).startDate(LocalDate.now()).isPaid(false).planId(request.getPlanId())
@@ -62,16 +60,15 @@ public class InMemoryMockRepository implements SubscriptionRepository {
     private void isPlanIdValid(int planId) {
         boolean isPlanExist = false;
 
-        for (PlanType planType: PlanType.values()
-        ) {
-            if(planId == planType.getValue()) {
+        for (PlanType planType : PlanType.values()) {
+            if (planId == planType.getValue()) {
                 isPlanExist = true;
                 break;
             }
 
         }
 
-        if(!isPlanExist)
+        if (!isPlanExist)
             throw new InvalidParameterException("Invalid Plan Id");
     }
 
