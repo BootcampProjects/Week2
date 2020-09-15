@@ -1,21 +1,22 @@
-package com.kodluyoruz.subscription.respositories;
+package com.kodluyoruz.subscription.repositories;
 
 import com.kodluyoruz.subscription.contracts.requests.SubscriptionRequest;
 import com.kodluyoruz.subscription.contracts.requests.SubscriptionUpdateRequest;
 import com.kodluyoruz.subscription.contracts.response.SubscriptionResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
 public interface SubscriptionRepository {
 
-    List<SubscriptionResponse> getSubscriptionsByUserId(String userId);
+    ArrayList<SubscriptionResponse> getSubscriptionsByUserId(String userId);
 
-    List<SubscriptionResponse> getSubscriptionAll();
+    ArrayList<SubscriptionResponse> getSubscriptionAll();
 
     String createSubscription(SubscriptionRequest request);
 
-    void changeSubscription(SubscriptionUpdateRequest request);
+    void updateSubscription(SubscriptionUpdateRequest request);
 
     void deleteSubscription(String id);
 

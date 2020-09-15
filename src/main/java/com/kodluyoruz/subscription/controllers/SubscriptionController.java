@@ -36,7 +36,8 @@ public class SubscriptionController {
     }
 
     @PatchMapping
-    public ResponseEntity changeSubscription(@RequestParam SubscriptionUpdateRequest subscriptionUpdateRequest) {
+    public ResponseEntity updateSubscription(@RequestBody SubscriptionUpdateRequest subscriptionUpdateRequest) {
+        subscriptionsService.updateSubscription(subscriptionUpdateRequest);
         return ResponseEntity.noContent().build();
     }
 
@@ -47,6 +48,7 @@ public class SubscriptionController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteSubscription(@PathVariable String id) {
+        subscriptionsService.deleteSubscription(id);
         return ResponseEntity.noContent().build();
     }
 

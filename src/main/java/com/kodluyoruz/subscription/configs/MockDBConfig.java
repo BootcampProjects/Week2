@@ -10,10 +10,10 @@ import java.util.List;
 @Configuration
 public class MockDBConfig {
 
-    List<SubscriptionResponse> db = new ArrayList<>();
+    ArrayList<SubscriptionResponse> db = new ArrayList<>();
 
     @Bean
-    List<SubscriptionResponse> configMockDB(){
+    ArrayList<SubscriptionResponse> configMockDB(){
         return db;
     }
 }
