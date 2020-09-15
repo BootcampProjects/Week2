@@ -30,9 +30,8 @@ public class SubscriptionController {
 
     @PostMapping
     public ResponseEntity createSubscription(@RequestBody SubscriptionRequest subscription) {
-
-        Random rand = new Random();
-        URI location = URI.create(String.format("/subscriptions/%s/", rand.nextInt(1000)));
+        String id = subscriptionsService.createSubscription(subscription);
+        URI location = URI.create(String.format("/subscriptions/%s/", id));
         return ResponseEntity.created(location).build();
     }
 
