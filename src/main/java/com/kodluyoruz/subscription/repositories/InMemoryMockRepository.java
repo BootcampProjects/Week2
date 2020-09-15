@@ -1,5 +1,6 @@
 package com.kodluyoruz.subscription.repositories;
 
+import com.kodluyoruz.subscription.contracts.enums.PlanType;
 import com.kodluyoruz.subscription.contracts.requests.SubscriptionRequest;
 import com.kodluyoruz.subscription.contracts.requests.SubscriptionUpdateRequest;
 import com.kodluyoruz.subscription.contracts.response.SubscriptionResponse;
@@ -8,6 +9,7 @@ import com.kodluyoruz.subscription.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
+import java.security.InvalidParameterException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -42,6 +44,9 @@ public class InMemoryMockRepository implements SubscriptionRepository {
 
     @Override
     public String createSubscription(SubscriptionRequest request) {
+
+        isPlanIdValid(request.getPlanId());
+
         try {
             SubscriptionResponse response = SubscriptionResponse.builder().id(String.valueOf(db.size() + 1))
                     .endDate(LocalDate.now()).startDate(LocalDate.now()).isPaid(false).planId(request.getPlanId())
@@ -54,8 +59,27 @@ public class InMemoryMockRepository implements SubscriptionRepository {
         }
     }
 
+    private void isPlanIdValid(int planId) {
+        boolean isPlanExist = false;
+
+        for (PlanType planType: PlanType.values()
+        ) {
+            if(planId == planType.getValue()) {
+                isPlanExist = true;
+                break;
+            }
+
+        }
+
+        if(!isPlanExist)
+            throw new InvalidParameterException("Invalid Plan Id");
+    }
+
     @Override
     public void updateSubscription(SubscriptionUpdateRequest request) {
+
+        isPlanIdValid(request.getNewPlanId());
+
         SubscriptionResponse response = getSubscription(request.getId());
 
         response.setPlanId(request.getNewPlanId());

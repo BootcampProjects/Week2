@@ -12,7 +12,7 @@ import java.time.LocalDate;
 public class SubscriptionResponse {
     private String id;
     private String userId;
-    private String planId;
+    private int planId;
     private double price;
     private boolean isPaid;
     private LocalDate startDate;

@@ -6,6 +6,7 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.security.InvalidParameterException;
 import java.util.Date;
 
 @ControllerAdvice
@@ -31,4 +32,12 @@ public class ExceptionsHandler {
 
         return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(InvalidParameterException.class)
+    public ResponseEntity<Object> invalidParameterException(InvalidParameterException exception){
+        ExceptionDetails details = new ExceptionDetails(exception.getMessage(), new Date());
+
+        return new ResponseEntity<>(details, HttpStatus.BAD_REQUEST);
+    }
+
 }

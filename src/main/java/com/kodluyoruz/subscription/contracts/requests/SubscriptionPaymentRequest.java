@@ -7,8 +7,7 @@ import lombok.*;
 @Builder
 @RequiredArgsConstructor
 public class SubscriptionPaymentRequest {
-    @NonNull
-    private String userId;
+
     @NonNull
     private String cardOwnerName;
     @NonNull

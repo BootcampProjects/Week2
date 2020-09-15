@@ -13,5 +13,5 @@ public class SubscriptionUpdateRequest {
     @NonNull
     private String id;
     @NonNull
-    private String newPlanId;
+    private int newPlanId;
 }
